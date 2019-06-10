@@ -1,9 +1,6 @@
 package guru.springframework.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by jleoirab on 2019-06-08
@@ -12,9 +9,10 @@ import javax.persistence.Id;
 public class UnitOfMeasure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    String unitOfMeasure;
+    @Column(unique = true)
+    private String value;
 
     public long getId() {
         return id;
@@ -24,11 +22,11 @@ public class UnitOfMeasure {
         this.id = id;
     }
 
-    public String getUnitOfMeasure() {
-        return unitOfMeasure;
+    public String getValue() {
+        return value;
     }
 
-    public void setUnitOfMeasure(String unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

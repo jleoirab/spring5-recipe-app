@@ -13,7 +13,6 @@ public class Ingredient {
     private long id;
 
     private String description;
-    private float amount;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -40,14 +39,6 @@ public class Ingredient {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
     }
 
     public UnitOfMeasure getUnitOfMeasure() {
