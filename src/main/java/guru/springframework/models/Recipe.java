@@ -1,6 +1,7 @@
 package guru.springframework.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,6 +19,8 @@ public class Recipe {
     private int servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
 
     @Enumerated(value = EnumType.STRING)
@@ -28,8 +31,9 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<MeasuredIngredient> measuredIngredients;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipe_id")
+    private Set<MeasuredIngredient> measuredIngredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -37,7 +41,7 @@ public class Recipe {
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public long getId() {
         return id;
@@ -133,5 +137,13 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<MeasuredIngredient> getMeasuredIngredients() {
+        return measuredIngredients;
+    }
+
+    public void setMeasuredIngredients(Set<MeasuredIngredient> measuredIngredients) {
+        this.measuredIngredients = measuredIngredients;
     }
 }

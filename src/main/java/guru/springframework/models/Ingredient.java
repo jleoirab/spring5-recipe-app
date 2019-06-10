@@ -3,6 +3,8 @@ package guru.springframework.models;
 import javax.persistence.*;
 import java.util.Set;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Created by jleoirab on 2019-06-08
  */
@@ -24,6 +26,15 @@ public class Ingredient {
 
     @OneToOne(fetch = FetchType.EAGER)
     private UnitOfMeasure unitOfMeasure;
+
+    public Ingredient() {
+
+    }
+
+    public Ingredient(String description, UnitOfMeasure unitOfMeasure) {
+        this.description = checkNotNull(description);
+        this.unitOfMeasure = checkNotNull(unitOfMeasure);
+    }
 
     public long getId() {
         return id;
